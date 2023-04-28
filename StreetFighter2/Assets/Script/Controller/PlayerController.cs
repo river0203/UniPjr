@@ -4,52 +4,40 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    Rigidbody2D rigid;
-    Animator anim;
-
     [SerializeField]
-    private float Speed;
+    KeyCode LeftKey;
+    [SerializeField]
+    KeyCode RightKey;
+    [SerializeField]
+    KeyCode JumpKey;
 
-    private void Start()
+    Timer timer;
+
+    private void Awake()
     {
-        rigid = GetComponent<Rigidbody2D>();
-        anim = GetComponent<Animator>();
+        timer = GetComponent<Timer>();
+
+        timer.OnPrame -= OnMove;
+        timer.OnPrame += OnMove;
     }
 
-    void Update()
+    void OnMove()
     {
-        // 플레이어가 이동한다
-        // 입력
-        if(Input.GetKey(KeyCode.A))
+        // 입력받기
+        if (Input.GetKey(LeftKey))
         {
-            // 위치변환
-            // 1. 이동 속도 설정 regidbody
-            // 2. 위치 자체를 움직임
-            transform.position += Vector3.left * Speed * Time.deltaTime;
-            // 3. 힘을 가함
-
+            // 이동하기
+            Debug.Log($"Left : {gameObject.name}");
         }
-        else if (Input.GetKey(KeyCode.D))
+        else if (Input.GetKey(RightKey))
         {
-            // 위치변환
-            transform.position += Vector3.right * Speed * Time.deltaTime;
+            // 이동하기
+            Debug.Log($"Rigth{gameObject.name}");
         }
-
-
-        // 공격
-        // 입력
-        if (Input.GetKeyDown(KeyCode.J)) // 눌렀을 때 한 번
+        else if (Input.GetKey(JumpKey))
         {
-            // 출력
-            anim.Play("Player_kick");
-        }
-
-        // 점프
-        // 입력
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            // 점프
-            rigid.velocity = Vector2.up * 30;
+            // 이동하기
+            Debug.Log($"Jump{gameObject.name}");
         }
     }
 }
