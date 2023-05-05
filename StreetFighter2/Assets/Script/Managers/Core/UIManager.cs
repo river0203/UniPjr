@@ -6,6 +6,6 @@ public class UIManager
 {
     void Init()
     {
-        Managers m = Managers.Get();
+        Managers m = Managers.GetInstance();
     }
 }
